@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: EnableDisableButton(),
+    );
+ }}
+
+class EnableDisableButton extends StatefulWidget {
+  _EnableDisableButtonState createState() => _EnableDisableButtonState();
+}
+
+class _EnableDisableButtonState extends State<EnableDisableButton> {
+  bool isEnabled = true;
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Enable & Disable Button"),
+      ),
+     body: Center(
+      child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+         ElevatedButton(
+           onPressed: isEnabled
+          ? () {
+         print("Button Pressed");
+         }
+      : null,
+      child: Text("Click Me"),
+        ),
+        SizedBox(height: 20),
+        Switch(
+       value: isEnabled,
+       onChanged: (value) {
+        setState(() {
+      isEnabled = value;
+       });
+      },),
+      Text(isEnabled ? "Button Enabled" : "Button Disabled"),
+     ],),),);}
+}
