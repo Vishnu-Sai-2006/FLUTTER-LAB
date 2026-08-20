@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FoodOrderingApp(),
+    ),
+  );
+}
+
+// Reusable Custom Widget
+class FoodCard extends StatelessWidget {
+  final String foodName;
+  final String price;
+  final IconData foodIcon;
+
+  const FoodCard({
+    super.key,
+    required this.foodName,
+    required this.price,
+    required this.foodIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(10),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            // Food Image/Icon
+            CircleAvatar(
+              radius: 35,
+              child: Icon(foodIcon, size: 40, color: Colors.red),
+            ),
+
+            const SizedBox(width: 15),
+
+            // Food Name and Price
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    foodName,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.orange),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    price,
+                    style: const TextStyle(fontSize: 17, color: Colors.green),
+                  ),
+                ],
+              ),
+            ),
+
+            // Add to Cart Button
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("$foodName added to cart"),
+                  ),
+                );
+              },
+              child: const Text("ADD TO CART"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Main Food Ordering Screen
+class FoodOrderingApp extends StatelessWidget {
+  const FoodOrderingApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text("Food Ordering App"),
+          centerTitle: true,
+          backgroundColor: Colors.green),
+      body: ListView(
+        children: const [
+          FoodCard(
+            foodName: "Pizza",
+            price: "₹250",
+            foodIcon: Icons.local_pizza,
+          ),
+          FoodCard(
+            foodName: "Burger",
+            price: "₹150",
+            foodIcon: Icons.lunch_dining,
+          ),
+          FoodCard(
+            foodName: "Biryani",
+            price: "₹200",
+            foodIcon: Icons.rice_bowl,
+          ),
+        ],
+      ),
+    );
+  }
+}
